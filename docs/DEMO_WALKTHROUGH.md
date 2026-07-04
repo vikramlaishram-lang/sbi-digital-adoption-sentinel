@@ -2,6 +2,39 @@
 
 Use this walkthrough for judges and for a 3-minute recording. Keep the story focused: the product does not execute banking actions; it diagnoses readiness and produces a reviewable Digital Action Receipt.
 
+## Demo Pattern
+
+Say this at the start:
+
+```text
+The MVP demonstrates three blocked digital banking journeys. I will run one customer request for each journey.
+```
+
+Use the same customer request box three times:
+
+```text
+Question 1 -> COOLING_PERIOD_ACTIVE
+Question 2 -> DOCUMENT_MISSING
+Question 3 -> CONSENT_REQUIRED
+```
+
+Do not make one customer question trigger all three decisions. The correct proof is:
+
+```text
+Three customer questions
+-> three journey classifications
+-> three readiness decisions
+-> three Digital Action Receipts
+```
+
+## Three Demo Questions
+
+| Customer question | Barrier shown | Expected journey | Expected decision | Expected receipt |
+| --- | --- | --- | --- | --- |
+| My IMPS transfer failed. Should I retry? | Payment recovery / trust | `failed_transaction_recovery` | `COOLING_PERIOD_ACTIVE` | `SBI-DAS-TXN-0001` |
+| I want to add a nominee online. | Digital service completion | `nominee_update_readiness` | `DOCUMENT_MISSING` | `SBI-DAS-NOM-0002` |
+| I want to link another bank account. | Consent-based adoption | `account_aggregation_consent_readiness` | `CONSENT_REQUIRED` | `SBI-DAS-AA-0003` |
+
 ## 3-Minute Recording Flow
 
 ```text
