@@ -1,0 +1,11 @@
+{
+  "journey": "nominee_update_readiness",
+  "rule_priority": [
+    "risk_review_flag",
+    "kyc_incomplete",
+    "online_not_allowed",
+    "required_details_missing",
+    "minor_guardian_missing",
+    "all_checks_pass"
+  ]
+}

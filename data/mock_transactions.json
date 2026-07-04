@@ -1,0 +1,7 @@
+{
+  "TXN_DEMO_0001": {
+    "payment_rail": "IMPS",
+    "transaction_status": "failed",
+    "debit_status": "not_debited"
+  }
+}

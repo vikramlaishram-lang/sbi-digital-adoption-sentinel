@@ -1,0 +1,12 @@
+{
+  "journey": "account_aggregation_consent_readiness",
+  "rule_priority": [
+    "risk_review_flag",
+    "institution_not_supported",
+    "mobile_kyc_mismatch",
+    "consent_absent",
+    "consent_expired",
+    "scope_not_acknowledged",
+    "all_checks_pass"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Digital Action Receipt v0.1",
+  "type": "object",
+  "required": ["receipt_id", "timestamp", "customer_id", "customer_request", "classified_journey", "evidence_checked", "rule_basis", "readiness_decision", "reason", "next_safe_step", "model_boundary_note", "record_hash"],
+  "properties": {
+    "receipt_id": {"type": "string"},
+    "timestamp": {"type": "string"},
+    "customer_id": {"type": "string"},
+    "customer_request": {"type": "string"},
+    "classified_journey": {"type": "string"},
+    "evidence_checked": {"type": "object"},
+    "rule_basis": {"type": "string"},
+    "readiness_decision": {"type": "string"},
+    "reason": {"type": "string"},
+    "next_safe_step": {"type": "string"},
+    "model_boundary_note": {"type": "string"},
+    "record_hash": {"type": "string"}
+  }
+}

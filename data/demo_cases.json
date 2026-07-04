@@ -1,0 +1,53 @@
+{
+  "failed_transaction_cooling_period": {
+    "customer_id": "CUST_1001",
+    "message": "My IMPS transfer failed. Should I retry?",
+    "journey": "failed_transaction_recovery",
+    "evidence": {
+      "payment_rail": "IMPS",
+      "transaction_status": "failed",
+      "debit_status": "not_debited",
+      "beneficiary_status": "newly_added",
+      "cooling_period_active": true,
+      "requested_amount": 75000,
+      "permitted_cooling_period_limit": 25000,
+      "daily_limit_exceeded": false,
+      "risk_review_flag": false,
+      "temporary_service_issue": false,
+      "reversal_status": "not_required"
+    }
+  },
+  "nominee_update_missing_details": {
+    "customer_id": "CUST_2002",
+    "message": "I want to add a nominee online.",
+    "journey": "nominee_update_readiness",
+    "evidence": {
+      "account_type": "savings",
+      "account_status": "active",
+      "kyc_status": "complete",
+      "mobile_verified": true,
+      "online_nominee_update_allowed": true,
+      "nominee_name_present": true,
+      "nominee_dob_present": false,
+      "nominee_relationship_present": false,
+      "minor_nominee": false,
+      "guardian_details_present": false,
+      "consent_declaration_done": false,
+      "risk_review_flag": false
+    }
+  },
+  "account_aggregation_consent_required": {
+    "customer_id": "CUST_3003",
+    "message": "I want to link another bank account.",
+    "journey": "account_aggregation_consent_readiness",
+    "evidence": {
+      "aa_consent_status": "absent",
+      "consent_expired": false,
+      "selected_institution_supported": true,
+      "mobile_kyc_match": true,
+      "data_fetch_ready": true,
+      "consent_scope_acknowledged": false,
+      "risk_review_flag": false
+    }
+  }
+}

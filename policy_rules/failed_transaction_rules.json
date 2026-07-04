@@ -1,0 +1,11 @@
+{
+  "journey": "failed_transaction_recovery",
+  "rule_priority": [
+    "risk_review_flag",
+    "temporary_service_issue",
+    "daily_limit_exceeded",
+    "new_beneficiary_cooling_period",
+    "reversal_pending",
+    "all_checks_pass"
+  ]
+}

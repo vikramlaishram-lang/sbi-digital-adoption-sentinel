@@ -1,0 +1,5 @@
+{
+  "CUST_1001": {"kyc_status": "complete", "mobile_verified": true},
+  "CUST_2002": {"kyc_status": "complete", "mobile_verified": true},
+  "CUST_3003": {"kyc_status": "complete", "mobile_verified": true}
+}
