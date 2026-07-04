@@ -27,13 +27,15 @@ def demo_page() -> str:
     body {{ font-family: Arial, sans-serif; margin: 32px; color: #17202a; }}
     textarea, select, input {{ width: 100%; padding: 8px; margin: 6px 0 14px; }}
     button {{ padding: 10px 14px; }}
-    pre {{ background: #f4f6f8; padding: 16px; overflow: auto; }}
+    pre {{ background: #f4f6f8; padding: 16px; overflow: auto; white-space: pre-wrap; }}
     .grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }}
+    .pitch {{ max-width: 980px; line-height: 1.45; }}
   </style>
 </head>
 <body>
   <h1>SBI Digital Adoption Sentinel</h1>
-  <p>Governed digital action-readiness engine for blocked digital banking journeys.</p>
+  <p><strong>Pillar 02: Digital Adoption</strong></p>
+  <p class="pitch">SBI Digital Adoption Sentinel turns blocked digital banking journeys into clear, safe, reviewable next steps using intent classification, customer-state evidence, SOP rules, readiness decisions, and Digital Action Receipts.</p>
   <div class="grid">
     <section>
       <h2>Customer Request</h2>
@@ -65,7 +67,36 @@ def demo_page() -> str:
       const response = await fetch("/decide", {{method: "POST", headers: {{"Content-Type": "application/json"}}, body: JSON.stringify(body)}});
       const data = await response.json();
       const staff = await fetch("/staff-view/" + data.receipt.receipt_id).then(r => r.json());
-      document.getElementById("output").textContent = JSON.stringify({{decision: data, staff_review_view: staff}}, null, 2);
+      const evidence = Object.entries(data.evidence_checked).map(([key, value]) => `- ${{key}}: ${{value}}`).join("\\n");
+      document.getElementById("output").textContent =
+`Customer request:
+${{body.message}}
+
+Detected journey:
+${{data.journey}}
+
+Evidence checked:
+${{evidence}}
+
+Decision: ${{data.readiness_decision}}
+
+Reason:
+${{data.reason}}
+
+Safe next step:
+${{data.next_safe_step}}
+
+Receipt ID:
+${{data.receipt.receipt_id}}
+
+Digital Action Receipt content:
+${{JSON.stringify(data.receipt, null, 2)}}
+
+Staff/review view:
+${{JSON.stringify(staff, null, 2)}}
+
+Model boundary note:
+${{data.receipt.model_boundary_note}}`;
     }}
   </script>
 </body>

@@ -16,7 +16,7 @@ The MVP focuses on three high-friction digital adoption journeys: failed transac
 
 ## Proposed Solution / Business Model
 
-The solution can be embedded into SBI digital channels, staff assistance screens, or call-centre workflows as a readiness and recovery layer. It reduces repeated failed attempts, avoidable branch visits, and inconsistent guidance while increasing trust in digital journeys.
+The solution can be embedded into SBI digital channels, staff assistance screens, or call-centre workflows as a bounded AI-assisted readiness and recovery layer. It reduces repeated failed attempts, avoidable branch visits, and inconsistent guidance while increasing trust in digital journeys.
 
 ## Technology Stack
 
@@ -61,3 +61,5 @@ https://github.com/vikramlaishram-lang/sbi-digital-adoption-sentinel
 ## Claim Boundary
 
 This MVP does not execute banking actions. It does not connect to real SBI systems. It does not claim access to SBI internal SOPs. It uses configurable demo SOP/rule logic. It does not make sensitive eligibility, risk, approval, or limit decisions using an LLM.
+
+The MVP creates audit-friendly, reviewable decision records. It is not a production decision system and does not approve or reject banking actions.

@@ -56,11 +56,37 @@ Staff / Review View
 Guided Completion / Escalation Recommendation
 ```
 
-## How To Run
+## Windows Quickstart Without Activation
+
+If PowerShell activation is blocked or confusing, use the virtual environment's Python directly:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -e ".[dev]"
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe scripts\smoke_demo.py
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000/
+```
+
+Optional activation:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+If activation fails, use the no-activation commands above.
+
+## macOS/Linux Quickstart
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 pip install -e ".[dev]"
 pytest -q
 python scripts/smoke_demo.py
@@ -96,6 +122,25 @@ More examples are in [docs/API_EXAMPLES.md](docs/API_EXAMPLES.md).
 4. Repeat for nominee update and Account Aggregation consent.
 
 The failed transaction journey is the hero demo.
+
+## Digital Action Receipt And Staff View
+
+Every readiness decision generates a Digital Action Receipt with:
+
+```text
+receipt ID
+customer request
+classified journey
+evidence checked
+rule basis
+readiness decision
+reason
+next safe step
+model boundary note
+record hash
+```
+
+The staff/review view summarizes the same decision for consistent assisted-channel handling.
 
 ## AI Boundary
 

@@ -1,11 +1,26 @@
 # Demo Walkthrough
 
-## 1. Failed Transaction Recovery - COOLING_PERIOD_ACTIVE
+Use this walkthrough for judges and for a 3-minute recording. Keep the story focused: the product does not execute banking actions; it diagnoses readiness and produces a reviewable Digital Action Receipt.
+
+## 3-Minute Recording Flow
+
+```text
+0:00-0:20 Opening
+0:20-1:05 Failed transaction recovery
+1:05-1:40 Nominee update readiness
+1:40-2:15 Account Aggregation consent readiness
+2:15-2:45 Digital Action Receipt + staff/review view
+2:45-3:00 Closing
+```
+
+## 1. Failed Transaction Recovery -> COOLING_PERIOD_ACTIVE
+
+This is the hero demo.
 
 Customer request:
 
 ```text
-My IMPS transfer failed. Should I retry?
+"My IMPS transfer failed. Should I retry?"
 ```
 
 Detected journey:
@@ -18,6 +33,7 @@ Evidence checked:
 
 ```text
 payment_rail = IMPS
+transaction_status = failed
 debit_status = not_debited
 beneficiary_status = newly_added
 cooling_period_active = true
@@ -26,9 +42,10 @@ permitted_cooling_period_limit = 25000
 daily_limit_exceeded = false
 risk_review_flag = false
 temporary_service_issue = false
+reversal_status = not_required
 ```
 
-Rule applied:
+Rule basis:
 
 ```text
 failed_transaction.new_beneficiary_cooling_period
@@ -40,7 +57,13 @@ Readiness decision:
 COOLING_PERIOD_ACTIVE
 ```
 
-Next safe step:
+Reason:
+
+```text
+The beneficiary was recently added and the safety cooling period is still active.
+```
+
+Safe next step:
 
 ```text
 Wait until the cooling period ends or proceed within the permitted limit.
@@ -52,13 +75,13 @@ Digital Action Receipt ID:
 SBI-DAS-TXN-0001
 ```
 
-Staff/review view:
+Staff/review view summary:
 
 ```text
-Evidence summary, rule basis, missing items, escalation flag, and branch visit flag.
+Shows the journey, decision, evidence-field count, matched rule basis, no missing items, no escalation required, and no branch visit required.
 ```
 
-## 2. Nominee Update Readiness - DOCUMENT_MISSING
+## 2. Nominee Update Readiness -> DOCUMENT_MISSING
 
 Customer request:
 
@@ -75,16 +98,21 @@ nominee_update_readiness
 Evidence checked:
 
 ```text
+account_type = savings
+account_status = active
 kyc_status = complete
 mobile_verified = true
 online_nominee_update_allowed = true
 nominee_name_present = true
 nominee_dob_present = false
 nominee_relationship_present = false
+minor_nominee = false
+guardian_details_present = false
 consent_declaration_done = false
+risk_review_flag = false
 ```
 
-Rule applied:
+Rule basis:
 
 ```text
 nominee_update.required_details_missing
@@ -96,10 +124,16 @@ Readiness decision:
 DOCUMENT_MISSING
 ```
 
-Next safe step:
+Reason:
 
 ```text
-Complete nominee details and declaration before submission.
+Required nominee details or declaration are missing.
+```
+
+Safe next step:
+
+```text
+Complete the missing details or declaration before submission.
 ```
 
 Digital Action Receipt ID:
@@ -108,13 +142,13 @@ Digital Action Receipt ID:
 SBI-DAS-NOM-0002
 ```
 
-Staff/review view:
+Staff/review view summary:
 
 ```text
-Missing nominee date of birth, nominee relationship, and consent declaration.
+Shows missing nominee_date_of_birth, nominee_relationship, and consent_declaration with no branch visit required.
 ```
 
-## 3. Account Aggregation Consent Readiness - CONSENT_REQUIRED
+## 3. Account Aggregation Consent Readiness -> CONSENT_REQUIRED
 
 Customer request:
 
@@ -137,9 +171,10 @@ selected_institution_supported = true
 mobile_kyc_match = true
 data_fetch_ready = true
 consent_scope_acknowledged = false
+risk_review_flag = false
 ```
 
-Rule applied:
+Rule basis:
 
 ```text
 account_aggregation.consent_absent
@@ -151,7 +186,13 @@ Readiness decision:
 CONSENT_REQUIRED
 ```
 
-Next safe step:
+Reason:
+
+```text
+No active consent exists for account data sharing.
+```
+
+Safe next step:
 
 ```text
 Review and approve the consent scope before linking the account.
@@ -163,8 +204,24 @@ Digital Action Receipt ID:
 SBI-DAS-AA-0003
 ```
 
-Staff/review view:
+Staff/review view summary:
 
 ```text
-Consent requirement, evidence summary, escalation flag, and branch visit flag.
+Shows consent requirement, evidence-field count, matched rule basis, no branch visit required, and no escalation required.
 ```
+
+## Do Not Say
+
+- real SBI integration
+- real SBI SOP access
+- autonomous banking execution
+- approval or rejection of banking actions
+- replacement for SBI staff
+
+## Say
+
+- configurable demo SOP/rule logic
+- mock/customer-state evidence
+- readiness decision
+- safe next step
+- reviewable Digital Action Receipt
