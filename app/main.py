@@ -30,12 +30,46 @@ def demo_page() -> str:
     pre {{ background: #f4f6f8; padding: 16px; overflow: auto; white-space: pre-wrap; }}
     .grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }}
     .pitch {{ max-width: 980px; line-height: 1.45; }}
+    .boundary {{ background: #eef6ff; border-left: 4px solid #2563eb; padding: 12px; max-width: 980px; }}
+    .cards {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 16px 0 24px; }}
+    .card {{ border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; padding: 14px; text-align: left; cursor: pointer; }}
+    .card strong {{ display: block; margin-bottom: 8px; }}
+    .card small {{ display: block; color: #475569; margin-top: 6px; }}
+    .card.selected {{ border-color: #2563eb; box-shadow: 0 0 0 2px #bfdbfe; }}
+    .helper {{ color: #475569; margin-top: -8px; font-size: 14px; }}
   </style>
 </head>
 <body>
   <h1>SBI Digital Adoption Sentinel</h1>
   <p><strong>Pillar 02: Digital Adoption</strong></p>
   <p class="pitch">SBI Digital Adoption Sentinel turns blocked digital banking journeys into clear, safe, reviewable next steps using intent classification, customer-state evidence, SOP rules, readiness decisions, and Digital Action Receipts.</p>
+  <p class="boundary">This demo uses configurable SOP/rule logic and mock customer-state evidence. It does not connect to real SBI systems or execute banking actions.</p>
+
+  <h2>Three-question demo flow</h2>
+  <div class="cards">
+    <button class="card selected" type="button" data-case="failed_transaction_cooling_period" data-question="My IMPS transfer failed. Should I retry?">
+      <strong>Failed Transaction Recovery</strong>
+      Customer question: "My IMPS transfer failed. Should I retry?"
+      <small>Demo case id: failed_transaction_cooling_period</small>
+      <small>Expected decision: COOLING_PERIOD_ACTIVE</small>
+      <small>Expected receipt: SBI-DAS-TXN-0001</small>
+    </button>
+    <button class="card" type="button" data-case="nominee_update_missing_details" data-question="I want to add a nominee online.">
+      <strong>Nominee Update Readiness</strong>
+      Customer question: "I want to add a nominee online."
+      <small>Demo case id: nominee_update_missing_details</small>
+      <small>Expected decision: DOCUMENT_MISSING</small>
+      <small>Expected receipt: SBI-DAS-NOM-0002</small>
+    </button>
+    <button class="card" type="button" data-case="account_aggregation_consent_required" data-question="I want to link another bank account.">
+      <strong>Account Aggregation Consent Readiness</strong>
+      Customer question: "I want to link another bank account."
+      <small>Demo case id: account_aggregation_consent_required</small>
+      <small>Expected decision: CONSENT_REQUIRED</small>
+      <small>Expected receipt: SBI-DAS-AA-0003</small>
+    </button>
+  </div>
+
   <div class="grid">
     <section>
       <h2>Customer Request</h2>
@@ -43,6 +77,7 @@ def demo_page() -> str:
       <select id="case">{options}</select>
       <label>Customer message</label>
       <textarea id="message">My IMPS transfer failed. Should I retry?</textarea>
+      <p class="helper">Select one of the three demo cards above to auto-fill the customer question for recording.</p>
       <button onclick="decide()">Decide Readiness</button>
     </section>
     <section>
@@ -58,6 +93,24 @@ def demo_page() -> str:
     </section>
   </div>
   <script>
+    function selectCard(card) {{
+      document.querySelectorAll(".card").forEach((item) => item.classList.remove("selected"));
+      card.classList.add("selected");
+      document.getElementById("case").value = card.dataset.case;
+      document.getElementById("message").value = card.dataset.question;
+    }}
+
+    document.querySelectorAll(".card").forEach((card) => {{
+      card.addEventListener("click", () => selectCard(card));
+    }});
+
+    document.getElementById("case").addEventListener("change", (event) => {{
+      const matching = document.querySelector(`.card[data-case="${{event.target.value}}"]`);
+      if (matching) {{
+        selectCard(matching);
+      }}
+    }});
+
     async function decide() {{
       const body = {{
         customer_id: "CUST_DEMO",
