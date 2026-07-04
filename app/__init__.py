@@ -1,0 +1,1 @@
+"""SBI Digital Adoption Sentinel."""
