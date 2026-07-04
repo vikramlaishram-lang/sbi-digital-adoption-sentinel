@@ -44,8 +44,15 @@ def demo_page() -> str:
       <button onclick="decide()">Decide Readiness</button>
     </section>
     <section>
-      <h2>Digital Action Receipt / Staff Review View</h2>
-      <pre id="output">Run a demo case to see journey, evidence checklist, decision, next safe step, receipt, and staff view.</pre>
+      <h2>Decision, Receipt, and Staff Review View</h2>
+      <pre id="output">Run a demo case to see:
+- Customer request
+- Detected journey
+- Evidence checklist
+- Decision
+- Next safe step
+- Receipt ID
+- Staff/review view</pre>
     </section>
   </div>
   <script>
